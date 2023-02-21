@@ -1,5 +1,3 @@
-import { CapacitorHttp } from "@capacitor/core";
-
 function join(...paths: string[]) {
   return paths.join("/");
 }
@@ -78,15 +76,16 @@ export class MiAuth {
       join("api", "miauth", this.session, "check"),
       this.origin
     );
-    const data: Record<string, unknown> = await CapacitorHttp.request(
-      {
-        method: "POST",
-        url: url.href
-      }).then(res => res.data)
+
+    const data: Record<string, unknown> = await fetch(url).then((res) =>
+      res.json()
+    );
     const token = String(data.token);
+
     if (typeof data.token === "undefined") {
       throw new AuthenticationError();
     }
+
     return token;
   }
 
