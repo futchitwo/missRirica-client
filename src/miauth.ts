@@ -1,5 +1,4 @@
 import { CapacitorHttp } from "@capacitor/core";
-import uuid from "uuid"
 
 function join(...paths: string[]) {
   return paths.join("/");
@@ -125,7 +124,7 @@ export class MiAuth {
  *  this is MiAuth constructor light wrapper
  */
 export function quickAuth(origin: string, param: UrlParam): MiAuth {
-  const session = uuid.v4();
+  const session = crypto.randomUUID();
   return new MiAuth(origin, param, session);
 }
 
