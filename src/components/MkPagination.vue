@@ -296,7 +296,7 @@ const fetchMore = async (): Promise<void> => {
         ? {
             offset: offset.value,
           }
-        : props.pagenation.reversed
+        : props.pagination.reversed
         ? {
             sinceId: items.value[items.value.length - 1].id,
           }
