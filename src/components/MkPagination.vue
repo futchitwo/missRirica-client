@@ -125,7 +125,7 @@ export type Paging<
 
   pageEl?: HTMLElement;
 
-  filtered? boolern;
+  filtered?: boolern;
 };
 </script>
 <script lang="ts" setup>
