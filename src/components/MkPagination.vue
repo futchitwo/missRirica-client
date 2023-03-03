@@ -92,7 +92,7 @@ import {
   scroll,
   isBottomVisible,
 } from "@/scripts/scroll";
-import { shouldShowNote } from "@/script/filter-timeline"
+import { shouldShowNote } from "@/scripts/filter-timeline"
 import MkButton from "@/components/MkButton.vue";
 import { defaultStore } from "@/store";
 import { MisskeyEntity } from "@/types/date-separated-list";

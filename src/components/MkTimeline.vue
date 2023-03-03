@@ -14,7 +14,7 @@ import XNotes from "@/components/MkNotes.vue";
 import * as os from "@/os";
 import { stream } from "@/stream";
 import * as sound from "@/scripts/sound";
-import { shouldShowNote } from "@/script/filter-timeline"
+import { shouldShowNote } from "@/scripts/filter-timeline"
 import { $i } from "@/account";
 
 const props = defineProps<{
