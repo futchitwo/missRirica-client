@@ -24,7 +24,10 @@
           </button>
         </div>
         <div>
-          <MkSwitch v-model="filtered">
+          <MkSwitch
+            v-model="filtered"
+            @update:model-value="tlComponent.reload"
+          >
             <template #label>fliter</template>
           </MkSwitch>
         </div>
