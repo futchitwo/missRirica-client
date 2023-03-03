@@ -33,14 +33,14 @@
           v-if="!moreFetching"
           v-appear="
             enableInfiniteScroll && !props.disableAutoLoad
-              ? fetchMoreAhead
+              ? fetchMore
               : null
           "
           :class="$style.more"
           :disabled="moreFetching"
           :style="{ cursor: moreFetching ? 'wait' : 'pointer' }"
           primary
-          @click="fetchMoreAhead"
+          @click="fetchMore"
         >
           {{ i18n.ts.loadMore }}
         </MkButton>
@@ -295,6 +295,10 @@ const fetchMore = async (): Promise<void> => {
       ...(props.pagination.offsetMode
         ? {
             offset: offset.value,
+          }
+        : props.pagenations.reversed
+        ? {
+            sinceId: items.value[items.value.length - 1].id,
           }
         : {
             untilId: items.value[items.value.length - 1].id,
