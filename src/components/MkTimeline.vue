@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, provide, onUnmounted } from "vue";
+import { ref, computed, provide, onUnmounted, toRefs, watch } from "vue";
 import XNotes from "@/components/MkNotes.vue";
 import * as os from "@/os";
 import { stream } from "@/stream";
@@ -21,6 +21,7 @@ const props = defineProps<{
   antenna?: string;
   channel?: string;
   sound?: boolean;
+  filtered?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -141,6 +142,11 @@ onUnmounted(() => {
   connection.dispose();
   if (connection2) connection2.dispose();
 });
+
+const { filtered }  = toRefs(props);
+watch(filtered, () => {
+  tlComponent.pagingComponent?.reload()
+})
 
 /* TODO
 const timetravel = (date?: Date) => {

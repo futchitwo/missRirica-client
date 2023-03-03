@@ -307,6 +307,7 @@ import { deepClone } from "@/scripts/clone";
 import { useTooltip } from "@/scripts/use-tooltip";
 import { claimAchievement } from "@/scripts/achievements";
 import { getNoteSummary } from "@/scripts/get-note-summary";
+import { shouldShowNote } from "@/scripts/filter-timeline"
 import { shownNoteIds } from "@/os";
 import { MenuItem } from "@/types/menu";
 
@@ -376,6 +377,9 @@ let renoteCollapsed = $ref(
 );
 
 shownNoteIds.add(appearNote.id);
+
+const isFilterEnabled = inject("isFliterEnabled", false);
+if (isFilterEnabled && !shouldShowNote(note)) isDeleted.value = true;
 
 const keymap = {
   r: () => reply(true),
