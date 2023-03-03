@@ -26,7 +26,7 @@
         <div>
           <MkSwitch
             v-model="filtered"
-            @update:model-value="tlComponent?.reload"
+            @update:model-value="tlComponent?.pagingComponent?.reload"
           >
             <template #label>fliter</template>
           </MkSwitch>
