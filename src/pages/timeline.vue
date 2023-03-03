@@ -23,12 +23,18 @@
             {{ i18n.ts.newNoteRecived }}
           </button>
         </div>
+        <div>
+          <MkSwitch v-model="filtered">
+            <template #label>fliter</template>
+          </MkSwitch>
+        </div>
         <div :class="$style.tl">
           <XTimeline
             ref="tlComponent"
             :key="src"
             :src="src"
             :sound="true"
+            :filtered = "filtered"
             @queue="queueUpdated"
           />
         </div>
@@ -41,6 +47,7 @@
 import { defineAsyncComponent, computed, watch, provide } from "vue";
 import XTimeline from "@/components/MkTimeline.vue";
 import MkPostForm from "@/components/MkPostForm.vue";
+import MkSwitch from "@/components/MkSwitch.vue";
 import { scroll } from "@/scripts/scroll";
 import * as os from "@/os";
 import { defaultStore } from "@/store";
@@ -49,7 +56,7 @@ import { instance } from "@/instance";
 import { $i } from "@/account";
 import { definePageMetadata } from "@/scripts/page-metadata";
 import type { Tab } from "@/components/global/MkPageHeader.tabs.vue";
-import { Camera } from "@capacitor/camera";
+//import { Camera } from "@capacitor/camera";
 
 provide("shouldOmitHeaderTitle", true);
 
@@ -65,6 +72,7 @@ const keymap = {
 
 const tlComponent = $shallowRef<InstanceType<typeof XTimeline>>();
 const rootEl = $shallowRef<HTMLElement>();
+const filtered = $ref(false);
 
 let queue = $ref(0);
 let srcWhenNotSignin = $ref(isLocalTimelineAvailable ? "local" : "global");
@@ -234,10 +242,12 @@ definePageMetadata(
   }))
 );
 
+/*
 const permissionState = await Camera.checkPermissions();
 if (!permissionState.camera) {
   Camera.requestPermissions({ permissions: ["photos", "camera"] });
 }
+*/
 </script>
 
 <style lang="scss" module>

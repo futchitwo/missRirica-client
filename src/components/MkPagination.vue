@@ -92,6 +92,7 @@ import {
   scroll,
   isBottomVisible,
 } from "@/scripts/scroll";
+import { shouldShowNote } from "@/script/filter-timeline"
 import MkButton from "@/components/MkButton.vue";
 import { defaultStore } from "@/store";
 import { MisskeyEntity } from "@/types/date-separated-list";
@@ -123,6 +124,8 @@ export type Paging<
   offsetMode?: boolean;
 
   pageEl?: HTMLElement;
+
+  filtered? boolern;
 };
 </script>
 <script lang="ts" setup>
@@ -249,13 +252,13 @@ async function init(): Promise<void> {
         ) {
           res.pop();
           if (props.pagination.reversed) moreFetching.value = true;
-          items.value = res;
+          items.value = props.pagination.filtered ? res.filter(shouldShowNote) : res;
           more.value = true;
         } else {
-          items.value = res;
+          items.value = props.pagination.filtered ? res.filter(shouldShowNote) : res;;
           more.value = false;
         }
-        offset.value = res.length;
+        offset.value = items.value.length//res.length;
         error.value = false;
         fetching.value = false;
       },
@@ -340,7 +343,8 @@ const fetchMore = async (): Promise<void> => {
               moreFetching.value = false;
             });
           } else {
-            items.value = items.value.concat(res);
+            const filteredItems = props.pagination.filtered ? res.filter(shouldShowNote) : res;
+            items.value = items.value.concat(filteredItems);
             more.value = true;
             moreFetching.value = false;
           }
@@ -351,7 +355,8 @@ const fetchMore = async (): Promise<void> => {
               moreFetching.value = false;
             });
           } else {
-            items.value = items.value.concat(res);
+            const filteredItems = props.pagination.filtered ? res.filter(shouldShowNote) : res;
+            items.value = items.value.concat(filteredItems);
             more.value = false;
             moreFetching.value = false;
           }

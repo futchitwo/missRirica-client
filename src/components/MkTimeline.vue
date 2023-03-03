@@ -3,6 +3,7 @@
     ref="tlComponent"
     :no-gap="!$store.state.showGapBetweenNotesInTimeline"
     :pagination="pagination"
+    :filtered="filtered"
     @queue="emit('queue', $event)"
   />
 </template>
@@ -13,6 +14,7 @@ import XNotes from "@/components/MkNotes.vue";
 import * as os from "@/os";
 import { stream } from "@/stream";
 import * as sound from "@/scripts/sound";
+import { shouldShowNote } from "@/script/filter-timeline"
 import { $i } from "@/account";
 
 const props = defineProps<{
@@ -21,6 +23,7 @@ const props = defineProps<{
   antenna?: string;
   channel?: string;
   sound?: boolean;
+  filtered?: boolern;
 }>();
 
 const emit = defineEmits<{
@@ -36,7 +39,9 @@ provide(
 const tlComponent: InstanceType<typeof XNotes> = $ref();
 
 const prepend = (note) => {
-  tlComponent.pagingComponent?.prepend(note);
+  if (props.filtered && !shouldShowNote(note)) return;
+
+  tlComponent.pagingComponent?.prepend(note, true);
 
   emit("note");
 
@@ -133,8 +138,9 @@ if (props.src === "antenna") {
 
 const pagination = {
   endpoint: endpoint,
-  limit: 10,
+  limit: 30, // MkPagination/SECOND_FETCH_LIMITって何かよくわからないけどハードリミットぽいのでとりあえず超えないように
   params: query,
+  filtered: props.filtered,
 };
 
 onUnmounted(() => {
