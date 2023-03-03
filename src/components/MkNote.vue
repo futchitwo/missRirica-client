@@ -310,6 +310,7 @@ import { getNoteSummary } from "@/scripts/get-note-summary";
 import { shouldShowNote } from "@/scripts/filter-timeline"
 import { shownNoteIds } from "@/os";
 import { MenuItem } from "@/types/menu";
+import ApiConsole from "@/pages/api-console.vue";
 
 const props = defineProps<{
   note: misskey.entities.Note;
@@ -378,7 +379,8 @@ let renoteCollapsed = $ref(
 
 shownNoteIds.add(appearNote.id);
 
-const isFilterEnabled = inject("isFliterEnabled", false);
+const isFilterEnabled = inject("isFliterEnabled", null);
+console.log("isFilterEnabled", isFilterEnabled)
 if (isFilterEnabled && !shouldShowNote(note)) isDeleted.value = true;
 
 const keymap = {
