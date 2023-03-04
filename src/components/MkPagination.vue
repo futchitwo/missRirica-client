@@ -274,6 +274,8 @@ const reload = (): Promise<void> => {
   return init();
 };
 
+let nextId: string;
+
 const fetchMore = async (): Promise<void> => {
   if (
     !more.value ||
@@ -298,10 +300,10 @@ const fetchMore = async (): Promise<void> => {
           }
         : props.pagination.reversed
         ? {
-            sinceId: items.value[items.value.length - 1].id,
+            sinceId: nextId || items.value[items.value.length - 1].id,
           }
         : {
-            untilId: items.value[items.value.length - 1].id,
+            untilId: nextId || items.value[items.value.length - 1].id,
           }),
     })
     .then(
@@ -349,6 +351,7 @@ const fetchMore = async (): Promise<void> => {
           } else {
             const filteredItems = props.pagination.filtered ? res.filter(shouldShowNote) : res;
             items.value = items.value.concat(filteredItems);
+            nextId = res[res.length - 1].id;
             more.value = true;
             moreFetching.value = false;
           }
@@ -361,6 +364,7 @@ const fetchMore = async (): Promise<void> => {
           } else {
             const filteredItems = props.pagination.filtered ? res.filter(shouldShowNote) : res;
             items.value = items.value.concat(filteredItems);
+            nextId = res[res.length - 1].id;
             more.value = false;
             moreFetching.value = false;
           }
