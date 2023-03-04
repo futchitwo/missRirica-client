@@ -136,12 +136,12 @@ if (props.src === "antenna") {
   connection.on("note", prepend);
 }
 
-const pagination = {
+const pagination = $computed(() => ({
   endpoint: endpoint,
   limit: 98, // MkPagination/SECOND_FETCH_LIMITって何かよくわからないけどハードリミットぽいのでとりあえず超えないように
   params: query,
   filtered: props.filtered,
-};
+}));
 
 onUnmounted(() => {
   connection.dispose();
