@@ -31,11 +31,14 @@
 </template>
 
 <script lang="ts" setup>
-import { shallowRef } from "vue";
+import { shallowRef, inject } from "vue";
 import XNote from "@/components/MkNote.vue";
 import MkDateSeparatedList from "@/components/MkDateSeparatedList.vue";
 import MkPagination, { Paging } from "@/components/MkPagination.vue";
 import { i18n } from "@/i18n";
+
+const isFilterEnabled = inject("isFliterEnabled", null);
+console.log("notes: isFilterEnabled", isFilterEnabled)
 
 const props = defineProps<{
   pagination: Paging;
