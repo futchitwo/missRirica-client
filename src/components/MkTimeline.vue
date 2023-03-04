@@ -138,7 +138,7 @@ if (props.src === "antenna") {
 
 const pagination = {
   endpoint: endpoint,
-  limit: 30, // MkPagination/SECOND_FETCH_LIMITって何かよくわからないけどハードリミットぽいのでとりあえず超えないように
+  limit: 100, // MkPagination/SECOND_FETCH_LIMITって何かよくわからないけどハードリミットぽいのでとりあえず超えないように
   params: query,
   filtered: props.filtered,
 };

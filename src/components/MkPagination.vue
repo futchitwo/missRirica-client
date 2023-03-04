@@ -98,7 +98,7 @@ import { defaultStore } from "@/store";
 import { MisskeyEntity } from "@/types/date-separated-list";
 import { i18n } from "@/i18n";
 
-const SECOND_FETCH_LIMIT = 30;
+const SECOND_FETCH_LIMIT = 100; //30;
 const TOLERANCE = 16;
 
 export type Paging<
