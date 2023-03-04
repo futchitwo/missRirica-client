@@ -381,7 +381,7 @@ shownNoteIds.add(appearNote.id);
 
 const isFilterEnabled = inject("isFliterEnabled", null);
 console.log("isFilterEnabled", isFilterEnabled)
-if (isFilterEnabled && !shouldShowNote(note)) isDeleted.value = true;
+if (isFilterEnabled?.value && !shouldShowNote(note)) isDeleted.value = true;
 
 const keymap = {
   r: () => reply(true),

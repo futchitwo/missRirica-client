@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, computed, watch, provide } from "vue";
+import { ref, defineAsyncComponent, computed, watch, provide } from "vue";
 import XTimeline from "@/components/MkTimeline.vue";
 import MkPostForm from "@/components/MkPostForm.vue";
 import MkSwitch from "@/components/MkSwitch.vue";
@@ -72,7 +72,7 @@ const keymap = {
 
 const tlComponent = $shallowRef<InstanceType<typeof XTimeline>>();
 const rootEl = $shallowRef<HTMLElement>();
-const filtered = $ref(false);
+const filtered = ref(false);
 provide("isFilterEnabled", filtered);
 
 let queue = $ref(0);
